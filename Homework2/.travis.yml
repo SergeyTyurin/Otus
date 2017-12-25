@@ -1,0 +1,11 @@
+language: cpp
+script:
+- cd Homework2
+- cmake .
+- cmake --build .
+- cmake --build . --target package
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+  - curl -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uSergeyTyurin:$BINTRAY_API_KEY "https://api.bintray.com/content/sergeytyurin/otus-cpp/homework2/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
