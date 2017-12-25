@@ -14,13 +14,13 @@
 using StrVec = std::vector<std::string>;
 using Ip_Tuple = std::tuple<int,int,int,int>;
 
-Ip_Tuple to_tuple(const std::vector<std::string>& c)
+Ip_Tuple to_tuple(const StrVec& c)
 {
     return std::make_tuple(std::stoi(c.at(0)),
                            std::stoi(c.at(1)),
                            std::stoi(c.at(2)),
                            std::stoi(c.at(3)));
-};
+}
 
 void print(const StrVec & ip)
 {
