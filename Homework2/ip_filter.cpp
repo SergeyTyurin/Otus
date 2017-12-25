@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <tuple>
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
