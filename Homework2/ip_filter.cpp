@@ -90,7 +90,7 @@ int main(int argc, char const *argv[])
         }
 
         // TODO reverse lexicographically sort
-        std::sort(ip_pool.begin(),ip_pool.end(),[](auto begin, auto end)
+        std::sort(ip_pool.begin(),ip_pool.end(),[](const StrVec& begin, const StrVec& end)
         {
             return to_tuple(begin)>to_tuple(end);
         });
