@@ -14,17 +14,14 @@
 // ("11.22", '.') -> ["11", "22"]
 
 using StrVec = std::vector<std::string>;
-using Ip_Tuple = std::tuple<int,int,int,int>;
+using IntVec = std::vector<int>;
 
-Ip_Tuple to_tuple(const StrVec& c)
+IntVec IntVector(const StrVec& c)
 {
-    return std::make_tuple(std::stoi(c.at(0)),
-                           std::stoi(c.at(1)),
-                           std::stoi(c.at(2)),
-                           std::stoi(c.at(3)));
+    return IntVec{std::stoi(c[0]),std::stoi(c[1]),std::stoi(c[2]),std::stoi(c[3])};
 }
 
-void print(const StrVec & ip)
+void print(const IntVec & ip)
 {
     std::cout<<ip.at(0)<<"."
              <<ip.at(1)<<"."
@@ -50,32 +47,31 @@ std::vector<std::string> split(const std::string &str, char d)
     return r;
 }
 
-void filtered(const StrVec& vs,const std::vector<int>& vi)
+void filtered(const IntVec& vs,const IntVec& vi)
 {
     for (int i = 0; i < vi.size(); ++i) {
-        if (std::stoi((vs).at(i)) != vi.at(i))
+        if (vs.at(i) != vi.at(i))
             return;
     }
     print(vs);
 }
 
 template<typename... Args>
-void filter(const std::vector<StrVec>& ip_pool, Args... args)
+void filter(const std::vector<IntVec>& ip_pool, Args... args)
 {
-    std::vector<int> filters = {args...};
+    IntVec filters = {args...};
 
     for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
         filtered(*ip, filters);
 }
 
 
-void filter_any(const std::vector<StrVec>& ip_pool, int f)
+void filter_any(const std::vector<IntVec>& ip_pool, int f)
 {
     for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
     {
-        if(std::stoi((*ip).at(0))==f || std::stoi((*ip).at(1))==f ||
-                std::stoi((*ip).at(2))==f || std::stoi((*ip).at(3))==f)
-            print(*ip);
+        if(std::any_of(ip->begin(), ip->end(),[&f](int num){return f==num;}))
+                print(*ip);
     }
 }
 
@@ -83,19 +79,21 @@ int main(int argc, char const *argv[])
 {
     try
     {
-        std::vector<StrVec> ip_pool;
+        std::vector<IntVec> ip_pool;
 
         for(std::string line; std::getline(std::cin, line);)
         {
             StrVec v = split(line, '\t');
-            ip_pool.push_back( split(v.at(0), '.') );
+            ip_pool.push_back( IntVector(split(v.at(0), '.')) );
         }
 
         // TODO reverse lexicographically sort
-        std::sort(ip_pool.begin(),ip_pool.end(),[](const StrVec& begin, const StrVec& end)
-        {
-            return to_tuple(begin)>to_tuple(end);
-        });
+//        std::sort(ip_pool.begin(),ip_pool.end(),[](const StrVec& begin, const StrVec& end)
+//        {
+//            return to_tuple(begin)>to_tuple(end);
+//        });
+
+        std::sort(ip_pool.begin(), ip_pool.end(),std::greater<IntVec>());
 
         for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
         {
