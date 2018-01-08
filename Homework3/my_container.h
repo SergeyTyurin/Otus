@@ -85,6 +85,7 @@ public:
     {
         p = head;
         while(p!=nullptr) {
+            std::cout<<p->data<<std::endl;
             p = p->next;
         }
     }

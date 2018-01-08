@@ -4,7 +4,7 @@ project(allocator VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in version.h)
 
-add_executable(allocator main.cpp)
+add_executable(allocator main.cpp my_allocator.h my_container.h)
 
 set_target_properties(allocator PROPERTIES
         CXX_STANDARD 14

@@ -9,6 +9,10 @@ private:
     void* head = nullptr;   //адрес на начало выделенного pool'a памяти
 public:
     using value_type = T;
+    using pointer = T*;
+    using const_pointer = const pointer;
+    using reference = T&;
+    using const_reference = const reference;
     MyAlloc()
     {
         p = (T*)std::malloc(num_elems * sizeof(T));
@@ -42,7 +46,7 @@ public:
     void construct(U* p, Args&&... args)
     {
         new((void*)p) U(std::forward<Args...>(args...));
-    };
+    }
 
     template<typename U>
     void destroy(U* p)
@@ -54,5 +58,5 @@ public:
     struct rebind
     {
         typedef MyAlloc<U, num_elems> other;
-    };
+    }
 };
