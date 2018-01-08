@@ -58,5 +58,5 @@ public:
     struct rebind
     {
         typedef MyAlloc<U, num_elems> other;
-    }
+    };
 };
