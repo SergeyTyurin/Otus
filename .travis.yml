@@ -1,9 +1,12 @@
 language: cpp
+before_script:
+- sudo apt-get install doxygen
 script:
 - cd Homework4
 - cmake .
 - cmake --build .
 - cmake --build . --target package
+- doxygen $TRAVIS_BUILD_DIR/Doxyfile
 deploy:
   provider: pages
   skip_cleanup: true
