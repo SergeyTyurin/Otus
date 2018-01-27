@@ -8,11 +8,17 @@
 #include "type_check.h"
 
 // Функция печати адреса для целочисленных типов
+/*!
+ * Функция печати ip-адреса для целочисленных типов
+ * @tparam Integral - целочисленный тип
+ * @param value - значение, передаваемое в функцию
+ */
 template <
         typename Integral,
-        typename std::enable_if
-                < std::is_integral<Integral>::value,
-                Integral* >::type = nullptr
+        typename std::enable_if<
+                std::is_integral<Integral>::value,
+                Integral*
+        >::type = nullptr
 >
 void print_ip(const Integral& value)
 {
@@ -25,13 +31,18 @@ void print_ip(const Integral& value)
     std::cout<<std::bitset<8>(bit.to_string(), 8*end,8).to_ulong()<<std::endl;
 }
 
-// Функция печати адреса для контейнерных типов
+/*!
+ * Функция печати ip-адреса для целочисленных типов
+ * @tparam Container - тип контейнера
+ * @param container - объект контейнера
+ */
 template <
         typename Container,
-        typename std::enable_if
-                < (is_container<Container>::value &&
-                        !std::is_same<Container, std::string>::value),
-                Container* >::type = nullptr
+        typename std::enable_if<
+                is_container<Container>::value
+                && !std::is_same<Container, std::string>::value,
+                Container*
+        >::type = nullptr
 >
 void print_ip(const Container& container)
 {
@@ -44,12 +55,17 @@ void print_ip(const Container& container)
     std::cout<<*end<<std::endl;
 }
 
-// Функция печати адреса для строки
+/*!
+ * Функция печати ip-адреса для целочисленных типов
+ * @tparam Container - тип контейнера
+ * @param container - объект контейнера
+ */
 template <
         typename Container,
-        typename std::enable_if
-                < std::is_same<Container, std::string>::value,
-                        Container* >::type = nullptr
+        typename std::enable_if<
+                std::is_same<Container,std::string>::value,
+                Container*
+        >::type = nullptr
 >
 void print_ip(const Container& container)
 {
@@ -89,7 +105,11 @@ void invoke(Tup&& tup)
 //============================================================
 
 
-// Функция печати адреса для кортежа
+/*!
+ * Функция печати ip-адреса для кортежа
+ * @tparam Args - типы в кортеже
+ * @param t - объект кортежа
+ */
 template<typename... Args>
 void print_ip(const std::tuple<Args...>& t)
 {

@@ -4,7 +4,6 @@
 
 #include "print.h"
 
-
 int main() {
     print_ip(char(-1));
     print_ip(short(0));
