@@ -72,38 +72,23 @@ void print_ip(const Container& container)
     std::cout<<container<<std::endl;
 }
 
-//нерекурсивная печать кортежа
-//============================================================
+// Структура печати элементов кортежа с рекурсивным обходом
+template<class Tuple, std::size_t N>
+struct TuplePrinter {
+    static void print(const Tuple& t)
+    {
+        TuplePrinter<Tuple, N-1>::print(t);
+        std::cout << "." << std::get<N-1>(t);
+    }
+};
 
-template <typename T>
-void foo(T arg)
-{
-    std::cout<<arg<<"\n";
-}
-
-template <typename T, typename... Args>
-void foo(T arg,Args... args)
-{
-    std::cout<<arg<<".";
-    foo(args...);
-}
-
-
-
-template<typename Tup, std::size_t... index>
-void invoke_helper(Tup&& tup, std::index_sequence<index...>)
-{
-    foo(std::get<index>(tup)...);
-}
-
-template<typename Tup>
-void invoke(Tup&& tup)
-{
-    constexpr auto Size = std::tuple_size<typename std::decay<Tup>::type>::value;
-    invoke_helper(std::forward<Tup>(tup), std::make_index_sequence<Size>{});
-}
-//============================================================
-
+template<class Tuple>
+struct TuplePrinter<Tuple, 1> {
+    static void print(const Tuple& t)
+    {
+        std::cout << std::get<0>(t);
+    }
+};
 
 /*!
  * Функция печати ip-адреса для кортежа
@@ -114,7 +99,7 @@ template<typename... Args>
 void print_ip(const std::tuple<Args...>& t)
 {
     if(TupleChecker<decltype(t),sizeof...(Args)-1>::check_type(t))
-        invoke(t);
+        TuplePrinter<decltype(t), sizeof...(Args)>::print(t);
     else
         std::cout<<"Types in tuple is not same";
     std::cout << "\n";

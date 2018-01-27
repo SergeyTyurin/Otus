@@ -6,6 +6,7 @@ configure_file(version.h.in version.h)
 
 add_executable(print_ip main.cpp type_check.h print.h)
 
+
 set_target_properties(print_ip PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
