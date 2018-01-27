@@ -73,7 +73,7 @@ void print_ip(const Container& container)
 }
 
 // Структура печати элементов кортежа с рекурсивным обходом
-template<class Tuple, std::size_t N>
+template<typename Tuple, std::size_t N>
 struct TuplePrinter {
     static void print(const Tuple& t)
     {
@@ -82,7 +82,7 @@ struct TuplePrinter {
     }
 };
 
-template<class Tuple>
+template<typename Tuple>
 struct TuplePrinter<Tuple, 1> {
     static void print(const Tuple& t)
     {
