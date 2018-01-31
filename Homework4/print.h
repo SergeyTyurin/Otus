@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <bitset>
 #include <utility>
-
 #include "type_check.h"
 
 // Функция печати адреса для целочисленных типов
@@ -95,12 +94,26 @@ struct TuplePrinter<Tuple, 1> {
  * @tparam Args - типы в кортеже
  * @param t - объект кортежа
  */
-template<typename... Args>
+template<
+        typename... Args,
+        typename std::enable_if<SameTypeCheck<sizeof...(Args),Args...>::value,void*>::type = nullptr
+>
 void print_ip(const std::tuple<Args...>& t)
 {
-    if(TupleChecker<decltype(t),sizeof...(Args)-1>::check_type(t))
-        TuplePrinter<decltype(t), sizeof...(Args)>::print(t);
-    else
-        std::cout<<"Types in tuple is not same";
+    TuplePrinter<decltype(t), sizeof...(Args)>::print(t);
     std::cout << "\n";
+}
+
+/*!
+ * Функция печати ip-адреса для кортежа
+ * @tparam Args - типы в кортеже
+ * @param t - объект кортежа
+ */
+template<
+        typename... Args,
+        typename std::enable_if<!SameTypeCheck<sizeof...(Args),Args...>::value,void*>::type = nullptr
+>
+void print_ip(const std::tuple<Args...>& tp)
+{
+    std::cout<<"Types in tuple is not same\n";
 }

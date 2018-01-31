@@ -15,21 +15,17 @@ public:
 };
 
 // структура для проверки идентичности типов в кортеже
-template<typename Tuple, std::size_t N>
-struct TupleChecker {
-    static bool check_type(const Tuple& t)
-    {
-        //рекурсивный вызов функции проверки
-        if(std::is_same<decltype(std::get<0>(t)), decltype(std::get<N>(t))>::value)
-            return true && TupleChecker<Tuple, N-1>::check_type(t);
-        return false;
-    }
+template<size_t N, typename T, typename... Args>
+struct SameTypeCheck {
+    typedef T type;
+    static constexpr bool value = std::is_same<T,typename SameTypeCheck<sizeof...(Args)-1,Args...>::type>::value
+                                  && SameTypeCheck<sizeof...(Args)-1,Args...>::value;
+
 };
 
-template<typename Tuple>
-struct TupleChecker<Tuple, 0> {
-    static bool check_type(const Tuple& t)
-    {
-        return true;
-    }
+template<typename T>
+struct SameTypeCheck<0,T>
+{
+    typedef T type;
+    static constexpr bool value = true;
 };
