@@ -18,6 +18,6 @@ deploy:
     github_token: $GITHUB_TOKEN
     keep_history: true
     target-branch: doc_hw5
-    local-dir: html
+    local-dir: doc
     on:
       branch: master
