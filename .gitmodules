@@ -1,3 +1,6 @@
 [submodule "Homework4"]
 	path = Homework4
 	url = ./Homework4.git
+[submodule "HomeWork4"]
+	path = HomeWork4
+	url = ./Homework4.git
