@@ -1,0 +1,94 @@
+\hypertarget{print_8h}{\section{print.\-h File Reference}
+\label{print_8h}\index{print.\-h@{print.\-h}}
+}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$type\-\_\-traits$>$}\\*
+{\ttfamily \#include $<$bitset$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include \char`\"{}type\-\_\-check.\-h\char`\"{}}\\*
+Include dependency graph for print.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{print_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=134pt]{print_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_tuple_printer}{Tuple\-Printer$<$ Tuple, N $>$}
+\item 
+struct \hyperlink{struct_tuple_printer_3_01_tuple_00_011_01_4}{Tuple\-Printer$<$ Tuple, 1 $>$}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Integral , typename std\-::enable\-\_\-if$<$ std\-::is\-\_\-integral$<$ Integral $>$\-::value, Integral $\ast$ $>$\-::type  = nullptr$>$ }\\void \hyperlink{print_8h_ae115ec29a208f2abe4c9caa427a2a67a}{print\-\_\-ip} (const Integral \&value)
+\item 
+{\footnotesize template$<$typename Container , typename std\-::enable\-\_\-if$<$ is\-\_\-container$<$ Container $>$\-::value \&\&!std\-::is\-\_\-same$<$ Container, std\-::string $>$\-::value, Container $\ast$ $>$\-::type  = nullptr$>$ }\\void \hyperlink{print_8h_a8ed4d78a6c98462b99031e0eceb0681a}{print\-\_\-ip} (const Container \&container)
+\item 
+{\footnotesize template$<$typename... Args, typename std\-::enable\-\_\-if$<$ Same\-Type\-Check$<$ sizeof...(\-Args), Args...$>$\-::value, void $\ast$ $>$\-::type  = nullptr$>$ }\\void \hyperlink{print_8h_a9d66204a843e107d6a46614e62d86a25}{print\-\_\-ip} (const std\-::tuple$<$ Args...$>$ \&t)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{print_8h_ae115ec29a208f2abe4c9caa427a2a67a}{\index{print.\-h@{print.\-h}!print\-\_\-ip@{print\-\_\-ip}}
+\index{print\-\_\-ip@{print\-\_\-ip}!print.h@{print.\-h}}
+\subsubsection[{print\-\_\-ip}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Integral , typename std\-::enable\-\_\-if$<$ std\-::is\-\_\-integral$<$ Integral $>$\-::value, Integral $\ast$ $>$\-::type  = nullptr$>$ void print\-\_\-ip (
+\begin{DoxyParamCaption}
+\item[{const Integral \&}]{value}
+\end{DoxyParamCaption}
+)}}\label{print_8h_ae115ec29a208f2abe4c9caa427a2a67a}
+Функция печати ip-\/адреса для целочисленных типов 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Integral} & -\/ целочисленный тип \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ значение, передаваемое в функцию \\
+\hline
+\end{DoxyParams}
+\hypertarget{print_8h_a8ed4d78a6c98462b99031e0eceb0681a}{\index{print.\-h@{print.\-h}!print\-\_\-ip@{print\-\_\-ip}}
+\index{print\-\_\-ip@{print\-\_\-ip}!print.h@{print.\-h}}
+\subsubsection[{print\-\_\-ip}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Container , typename std\-::enable\-\_\-if$<$ is\-\_\-container$<$ Container $>$\-::value \&\&!std\-::is\-\_\-same$<$ Container, std\-::string $>$\-::value, Container $\ast$ $>$\-::type  = nullptr$>$ void print\-\_\-ip (
+\begin{DoxyParamCaption}
+\item[{const Container \&}]{container}
+\end{DoxyParamCaption}
+)}}\label{print_8h_a8ed4d78a6c98462b99031e0eceb0681a}
+Функция печати ip-\/адреса для целочисленных типов 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Container} & -\/ тип контейнера \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em container} & -\/ объект контейнера \\
+\hline
+\end{DoxyParams}
+\hypertarget{print_8h_a9d66204a843e107d6a46614e62d86a25}{\index{print.\-h@{print.\-h}!print\-\_\-ip@{print\-\_\-ip}}
+\index{print\-\_\-ip@{print\-\_\-ip}!print.h@{print.\-h}}
+\subsubsection[{print\-\_\-ip}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args, typename std\-::enable\-\_\-if$<$ Same\-Type\-Check$<$ sizeof...(\-Args), Args...$>$\-::value, void $\ast$ $>$\-::type  = nullptr$>$ void print\-\_\-ip (
+\begin{DoxyParamCaption}
+\item[{const std\-::tuple$<$ Args...$>$ \&}]{tp}
+\end{DoxyParamCaption}
+)}}\label{print_8h_a9d66204a843e107d6a46614e62d86a25}
+Функция печати ip-\/адреса для кортежа 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & -\/ типы в кортеже \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em t} & -\/ объект кортежа \\
+\hline
+\end{DoxyParams}

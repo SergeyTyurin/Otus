@@ -1,0 +1,41 @@
+\hypertarget{struct_same_type_check}{\section{Same\-Type\-Check$<$ N, T, Args $>$ Struct Template Reference}
+\label{struct_same_type_check}\index{Same\-Type\-Check$<$ N, T, Args $>$@{Same\-Type\-Check$<$ N, T, Args $>$}}
+}
+
+
+{\ttfamily \#include $<$type\-\_\-check.\-h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef T \hyperlink{struct_same_type_check_a2bd1b23b5f7e5f14acc5a64274651adb}{type}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \hyperlink{struct_same_type_check_a90fe116ef2512e49fc0065e1c9ccf302}{value}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\hypertarget{struct_same_type_check_a2bd1b23b5f7e5f14acc5a64274651adb}{\index{Same\-Type\-Check@{Same\-Type\-Check}!type@{type}}
+\index{type@{type}!SameTypeCheck@{Same\-Type\-Check}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t N, typename T , typename... Args$>$ typedef T {\bf Same\-Type\-Check}$<$ N, T, Args $>$\-::{\bf type}}}\label{struct_same_type_check_a2bd1b23b5f7e5f14acc5a64274651adb}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_same_type_check_a90fe116ef2512e49fc0065e1c9ccf302}{\index{Same\-Type\-Check@{Same\-Type\-Check}!value@{value}}
+\index{value@{value}!SameTypeCheck@{Same\-Type\-Check}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t N, typename T , typename... Args$>$ constexpr bool {\bf Same\-Type\-Check}$<$ N, T, Args $>$\-::value\hspace{0.3cm}{\ttfamily [static]}}}\label{struct_same_type_check_a90fe116ef2512e49fc0065e1c9ccf302}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= std::is\_same<T,\textcolor{keyword}{typename} \hyperlink{struct_same_type_check}{SameTypeCheck}<\textcolor{keyword}{sizeof}...(Args)-1,Args...>::
+      \hyperlink{struct_same_type_check_a2bd1b23b5f7e5f14acc5a64274651adb}{type}>::\hyperlink{struct_same_type_check_a90fe116ef2512e49fc0065e1c9ccf302}{value}
+                                  && \hyperlink{struct_same_type_check}{SameTypeCheck}<\textcolor{keyword}{sizeof}...(Args)-1,Args...>
+      \hyperlink{struct_same_type_check_a90fe116ef2512e49fc0065e1c9ccf302}{::value}
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{type__check_8h}{type\-\_\-check.\-h}\end{DoxyCompactItemize}
