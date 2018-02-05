@@ -3,16 +3,16 @@ before_script:
 - sudo apt-get install graphviz
 - sudo apt-get install doxygen
 script:
-- cd Homework4
+- cd Homework5
 - cmake .
 - cmake --build .
 - cmake --build . --target package
-- doxygen doc/Doxyfile
+- doxygen doc/Doxyfile5
 deploy:
   - provider: pages
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
     #keep_history: true
-    local-dir: Homework4/doc
+    local-dir: Homework5/doc
     on:
       branch: master
