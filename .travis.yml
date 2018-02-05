@@ -7,7 +7,7 @@ script:
 - cmake .
 - cmake --build .
 - cmake --build . --target package
-- doxygen ../doc/Doxyfile
+- doxygen doc/Doxyfile
 deploy:
 #  - provider: script
 #    skip_cleanup: true
@@ -18,6 +18,6 @@ deploy:
     github_token: $GITHUB_TOKEN
     keep_history: true
     target-branch: doc_hw5
-    local-dir: Homework5/doc
+    local-dir: doc
     on:
       branch: master
