@@ -13,7 +13,6 @@ deploy:
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
     keep_history: true
-    target-branch: doc_hw4
     local-dir: Homework4/doc
     on:
       branch: master
