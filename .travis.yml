@@ -1,18 +1,10 @@
 language: cpp
-before_script:
-- sudo apt-get install graphviz
-- sudo apt-get install doxygen
 script:
-- cd Homework5
+- cd Homework6
 - cmake .
 - cmake --build .
 - cmake --build . --target package
-- doxygen doc/Doxyfile5
 deploy:
-  - provider: pages
+  - provider: script
     skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    #keep_history: true
-    local-dir: Homework5/doc
-    on:
-      branch: master
+    script: curl -T matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uSergeyTyurin:$BINTRAY_API_KEY "https://api.bintray.com/content/sergeytyurin/otus-cpp/matrix/$TRAVIS_BUILD_NUMBER/matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
