@@ -61,3 +61,9 @@ std::vector<std::string> Block::getArray()
     return commands;
 }
 
+void Block::writeRestCommands()
+{
+    sub_block.clear();
+    flushCommands();
+}
+
