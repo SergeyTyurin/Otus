@@ -63,7 +63,6 @@ std::vector<std::string> Block::getArray()
 
 void Block::writeRestCommands()
 {
-    sub_block.clear();
     flushCommands();
 }
 

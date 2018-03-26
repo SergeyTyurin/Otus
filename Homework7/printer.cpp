@@ -19,7 +19,7 @@ void ConsoleWriter::setArray(const std::vector<std::string> & arr)
 
 void FileWriter::print()
 {
-    std::string filename = "Logs/bulk"+timestamp+".log";
+    std::string filename = "bulk"+timestamp+".log";
     std::ofstream out(filename);
     if(v.empty())
         return;
