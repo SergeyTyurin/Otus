@@ -1,10 +1,10 @@
 language: cpp
 script:
-- cd Homework7
+- cd Homework10
 - cmake .
 - cmake --build .
 - cmake --build . --target package
 deploy:
   - provider: script
     skip_cleanup: true
-    script: curl -T bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uSergeyTyurin:$BINTRAY_API_KEY "https://api.bintray.com/content/sergeytyurin/otus-cpp/bulk/$TRAVIS_BUILD_NUMBER/bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+    script: bulkmt -T bulkmt-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uSergeyTyurin:$BINTRAY_API_KEY "https://api.bintray.com/content/sergeytyurin/otus-cpp/bulkmt/$TRAVIS_BUILD_NUMBER/bulkmt-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"

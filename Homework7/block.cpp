@@ -7,8 +7,9 @@
 Block::Block(int size)
 {
     N = size;
-    consoleWriter = new ConsoleWriter();
-    fileWriter = new FileWriter();
+    consoleWriter.reset(new ConsoleWriter());
+    fileWriter.reset(new FileWriter());
+
 }
 
 void Block::writeCommands(std::string com)
@@ -16,7 +17,7 @@ void Block::writeCommands(std::string com)
     if(com!="{" && com!="}")
     {
         if(commands.empty())
-            dynamic_cast<FileWriter*>(fileWriter)->setTimeStamp(std::to_string(std::time(nullptr)));
+            dynamic_cast<FileWriter*>(fileWriter.get())->setTimeStamp(std::to_string(std::time(nullptr)));
         commands.push_back(com);
         if(commands.size()==N)
             flushCommands();

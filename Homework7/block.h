@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include "printer.h"
 
 class Block
@@ -20,6 +21,6 @@ private:
     size_t N;
     std::vector<std::string> commands;
     std::vector<std::string> sub_block;
-    Writer* consoleWriter = nullptr;
-    Writer* fileWriter = nullptr;
+    std::unique_ptr<Writer> consoleWriter;
+    std::unique_ptr<Writer> fileWriter;
 };
