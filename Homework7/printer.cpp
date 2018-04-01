@@ -1,6 +1,7 @@
 #include "printer.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 void ConsoleWriter::print()
 {
     if(v.empty())
@@ -19,7 +20,9 @@ void ConsoleWriter::setArray(const std::vector<std::string> & arr)
 
 void FileWriter::print()
 {
-    std::string filename = "bulk"+timestamp+".log";
+    std::stringstream ss;
+    ss << a++;
+    std::string filename = "bulk"+timestamp+ss.str()+".log";
     std::ofstream out(filename);
     if(v.empty())
         return;

@@ -2,8 +2,6 @@
 #include <iostream>
 #include <ctime>
 
-
-
 Block::Block(int size)
 {
     N = size;
@@ -66,4 +64,3 @@ void Block::writeRestCommands()
 {
     flushCommands();
 }
-

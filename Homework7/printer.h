@@ -27,4 +27,5 @@ public:
 private:
     std::vector<std::string> v;
     std::string timestamp;
+    int a=1;
 };
