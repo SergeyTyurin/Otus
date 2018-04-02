@@ -5,6 +5,7 @@
 #include <queue>
 #include <thread>
 #include <memory>
+#include <condition_variable>
 #include "printer.h"
 
 using strVector = std::vector<std::string>;
