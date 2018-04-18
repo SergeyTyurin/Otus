@@ -7,49 +7,32 @@ Block::Block(int size)
     N = size;
     consoleWriter.reset(new ConsoleWriter());
     fileWriter.reset(new FileWriter());
-    log.SetName("log");
-    file1.SetName("file1");
-    file2.SetName("file2");
 
-    log.RunHandler([this]() {
-        while(!done)
-            log.Handler(consoleWriter.get(),this->cv_c,this->m_c,bulk_log);
-    });
+    logs.reset(new ThreadPool(1,"log"));
+    files.reset(new ThreadPool(2,"file"));
 
-    file1.RunHandler([this]() {
-        while(!done)
-            file1.Handler(fileWriter.get(),this->cv_c,this->m_c,bulk_file);
-    });
-
-    file2.RunHandler([this]() {
-        while(!done)
-            file2.Handler(fileWriter.get(),this->cv_c,this->m_c,bulk_file);
-    });
+    logs->Run(consoleWriter.get());
+    files->Run(fileWriter.get());
 }
 Block::~Block()
 {
-    cv_c.notify_all();
-    cv_f.notify_all();
-
-    log.Join();
-    file1.Join();
-    file2.Join();
+    logs->Join();
+    files->Join();
 
     std::cout<<"main thread - "<<lines<<" lines, "<<commands_line<<" commands, "<<blocks<<" blocks\n";
-    std::cout<<log.Name()<<" thread - "<<log.Blocks()<<" blocks, "<<log.Commands()<<" commands\n";
-    std::cout<<file1.Name()<<" thread - "<<file1.Blocks()<<" blocks, "<<file1.Commands()<<" commands\n";
-    std::cout<<file2.Name()<<" thread - "<<file2.Blocks()<<" blocks, "<<file2.Commands()<<" commands\n";
+    logs->Report();
+    files->Report();
 
 }
 
 void Block::writeCommands(std::string com)
 {
-    lines++;
+    ++lines;
     if (com != "{" && com != "}") {
         if (commands.empty())
             dynamic_cast<FileWriter *>(fileWriter.get())->setTimeStamp(std::to_string(std::time(nullptr)));
         commands.push_back(com);
-        commands_line++;
+        ++commands_line;
         if (commands.size() == N)
             flushCommands();
         }
@@ -75,19 +58,32 @@ void Block::subblock(std::string com)
 
 void Block::flushCommands()
 {
-    if(sub_block.empty() && !commands.empty())
+    if(sub_block.empty())
     {
-        blocks++;
-        bulk_file.emplace(commands);
-        this->cv_f.notify_all();
-        bulk_log.emplace(commands);
-        this->cv_c.notify_all();
-        commands.clear();
+        if(!commands.empty()) {
+            blocks++;
+            //bulk_file.emplace(commands);
+
+            logs->EmplaceBulk(commands);
+            files->EmplaceBulk(commands);
+            //bulk_log.emplace(commands);
+            commands.clear();
+        }
+
     }
+
+    logs->OpenThreads();
+    files->OpenThreads();
 }
 
 void Block::writeRestCommands()
 {
-    done = 1;
-    flushCommands();
+    logs->ClearBulk();
+    files->ClearBulk();
+
+    {
+        logs->CloseThreads();
+        files->CloseThreads();
+    }
+
 }

@@ -3,7 +3,7 @@ project(bulkmt VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in version.h)
 
-add_executable(bulkmt block.h main.cpp block.cpp printer.cpp)
+add_executable(bulkmt block.h main.cpp block.cpp printer.cpp thread.cpp threadpool.cpp)
 
 set_target_properties(bulkmt PROPERTIES
         CXX_STANDARD 14
