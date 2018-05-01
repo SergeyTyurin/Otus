@@ -57,13 +57,20 @@ void ThreadPool::EmplaceBulk(strVector commands)
 
 void ThreadPool::ClearBulk()
 {
-    while(!qbulk.bulk.empty())
+    while(!BulkEmpty)
     {
         cv.notify_one();
+        BulkEmpty=GetBulkEmpty();
     }
 }
 
 void ThreadPool::SetTimestamp(const std::string & t)
 {
     qbulk.timestamp = t;
+}
+
+bool ThreadPool::GetBulkEmpty()
+{
+    std::lock_guard<std::mutex> lock(m);
+    return qbulk.bulk.empty();
 }

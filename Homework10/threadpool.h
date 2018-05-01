@@ -16,6 +16,8 @@ class ThreadPool
     std::condition_variable cv;
     std::vector<Thread> threads;
     BulkQueue qbulk;
+    bool BulkEmpty;
+    bool GetBulkEmpty();
 public:
     ThreadPool(int count, std::string name);
     void Join();
