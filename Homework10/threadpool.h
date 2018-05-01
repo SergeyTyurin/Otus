@@ -3,9 +3,11 @@
 #include <vector>
 #include <string>
 #include <queue>
-#include "thread.h"
 #include <memory>
 #include <condition_variable>
+
+#include "bulkqueue.h"
+#include "thread.h"
 #include "printer.h"
 
 class ThreadPool
@@ -13,7 +15,7 @@ class ThreadPool
     std::mutex m;
     std::condition_variable cv;
     std::vector<Thread> threads;
-    std::queue<strVector> bulk;
+    BulkQueue qbulk;
 public:
     ThreadPool(int count, std::string name);
     void Join();
@@ -23,6 +25,7 @@ public:
     void CloseThreads();
     void EmplaceBulk(strVector);
     void ClearBulk();
+    void SetTimestamp(const std::string&);
 
 };
 

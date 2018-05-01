@@ -4,24 +4,18 @@
 #include <thread>
 #include <sstream>
 
-void ConsoleWriter::print(const std::string& bulk)
+void ConsoleWriter::print(const std::string& bulk, const std::string& timestamp)
 {
     std::cout<<bulk<<"\n";
 }
 
-void FileWriter::print(const std::string& bulk)
+void FileWriter::print(const std::string& bulk, const std::string& timestamp)
 {
     auto id = std::this_thread::get_id();
     std::stringstream ss;
-    ss <<++unique_num; //unique part in filename (thread_id + ++int)
+    ss <<id;
     std::string filename = "bulk"+timestamp+"_"+ss.str()+".log";
     std::ofstream out(filename);
     out<<bulk<<"\n";
-}
-
-
-void FileWriter::setTimeStamp(std::string str)
-{
-    timestamp = str;
 }
 

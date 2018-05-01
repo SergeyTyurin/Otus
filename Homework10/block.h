@@ -1,11 +1,13 @@
 #pragma once
+
 #include <vector>
 #include <string>
 #include <iostream>
 #include <queue>
-#include "thread.h"
 #include <memory>
 #include <condition_variable>
+
+#include "thread.h"
 #include "threadpool.h"
 
 class Block
@@ -27,8 +29,8 @@ private:
     std::unique_ptr<Writer> consoleWriter;
     std::unique_ptr<Writer> fileWriter;
 
-    std::queue<strVector> bulk_file;
-    std::queue<strVector> bulk_log;
+    //BulkQueue bulk_file;
+    //BulkQueue bulk_log;
 
 
     std::unique_ptr<ThreadPool> files;

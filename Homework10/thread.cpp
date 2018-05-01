@@ -5,7 +5,7 @@ Thread::Thread(const std::string& n)
     name = n;
 }
 
-void Thread::Handler(Writer* w, std::queue<strVector>& q, std::mutex& m, std::condition_variable& cv )
+void Thread::Handler(Writer* w, BulkQueue& q, std::mutex& m, std::condition_variable& cv )
 {
     while(!thread_closed)
     {
@@ -15,16 +15,16 @@ void Thread::Handler(Writer* w, std::queue<strVector>& q, std::mutex& m, std::co
             lk.unlock();
             break;
         }
-        cv.wait(lk, [this,&q]() { return !q.empty() || thread_closed;});
-        if (q.empty())
+        cv.wait(lk, [this,&q]() { return !q.bulk.empty() || thread_closed;});
+        if (q.bulk.empty())
         {
             lk.unlock();
             break;
         }
         else
         {
-            strVector com = toVec(q.front());
-            q.pop();
+            strVector com = toVec(q.bulk.front());
+            q.bulk.pop();
             lk.unlock();
             commands = (commands + static_cast<int>(com.size()));
             std::string complete_block = "bulk: ";
@@ -32,12 +32,12 @@ void Thread::Handler(Writer* w, std::queue<strVector>& q, std::mutex& m, std::co
                 complete_block += (*it + ", ");
             complete_block += *std::prev(com.end());
             blocks++;
-            w->print(complete_block);
+            w->print(complete_block, q.timestamp+std::to_string(++unique_num));
         }
     }
 }
 
-void Thread::RunThread(Writer* w, std::queue<strVector>& q, std::mutex& mx, std::condition_variable& cv)
+void Thread::RunThread(Writer* w, BulkQueue& q, std::mutex& mx, std::condition_variable& cv)
 {
 
     th = std::thread([this,w,&q, &mx, &cv](){this->Handler(w,q, mx, cv);});

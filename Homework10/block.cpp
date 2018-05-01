@@ -30,7 +30,9 @@ void Block::writeCommands(std::string com)
     ++lines;
     if (com != "{" && com != "}") {
         if (commands.empty())
-            dynamic_cast<FileWriter *>(fileWriter.get())->setTimeStamp(std::to_string(std::time(nullptr)));
+        {
+            files->SetTimestamp(std::to_string(std::time(nullptr)));
+        }
         commands.push_back(com);
         ++commands_line;
         if (commands.size() == N)
@@ -62,11 +64,10 @@ void Block::flushCommands()
     {
         if(!commands.empty()) {
             blocks++;
-            //bulk_file.emplace(commands);
 
             logs->EmplaceBulk(commands);
             files->EmplaceBulk(commands);
-            //bulk_log.emplace(commands);
+
             commands.clear();
         }
 

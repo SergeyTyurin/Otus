@@ -1,25 +1,23 @@
 #pragma once
+
 #include <vector>
 #include <string>
+#include <atomic>
 
 class Writer
 {
 public:
-    virtual void print(const std::string& bulk) = 0;
+    virtual void print(const std::string& bulk, const std::string& timestamp = "") = 0;
 };
 
 class ConsoleWriter:public Writer
 {
 public:
-    void print(const std::string& bulk) override ;
+    void print(const std::string& bulk, const std::string& timestamp = "") override ;
 };
 
 class FileWriter:public Writer
 {
 public:
-    void print(const std::string& bulk) override ;
-    void setTimeStamp(std::string);
-private:
-    std::string timestamp;
-    int unique_num = 0;
+    void print(const std::string& bulk, const std::string& timestamp = "") override ;
 };

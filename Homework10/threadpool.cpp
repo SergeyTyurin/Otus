@@ -25,7 +25,7 @@ void ThreadPool::Join()
 void ThreadPool::Run(Writer* w)
 {
     for(auto it= threads.begin();it!=threads.end();++it)
-        (*it).RunThread(w, bulk, m, cv);
+        (*it).RunThread(w, qbulk, m, cv);
 }
 
 void ThreadPool::OpenThreads()
@@ -52,13 +52,18 @@ void ThreadPool::CloseThreads()
 void ThreadPool::EmplaceBulk(strVector commands)
 {
     std::unique_lock<std::mutex> lock(m);
-    bulk.emplace(commands);
+    qbulk.bulk.emplace(commands);
 }
 
 void ThreadPool::ClearBulk()
 {
-    while(!bulk.empty())
+    while(!qbulk.bulk.empty())
     {
         cv.notify_one();
     }
+}
+
+void ThreadPool::SetTimestamp(const std::string & t)
+{
+    qbulk.timestamp = t;
 }
