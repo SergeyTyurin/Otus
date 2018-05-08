@@ -1,4 +1,5 @@
 #include "context.h"
+#include <algorithm>
 
 Context::Context(std::size_t N)
 {
@@ -43,28 +44,40 @@ void Context::Handler(){
     }
 }
 
-void Context::Parse(const char* _data) {
-    std::string command = _data;
-    std::string word = "";
-    for( auto it = command.begin(); it != command.end(); ++it )
+void Context::Parse( const char* data, size_t len )
+{
+    std::string command;
+    std::copy(data,data+len,std::back_inserter(command));
+    std::string word;
+    for(auto&& c:command)
     {
-        if( *it == '\n' )
-        {
-            std::lock_guard<std::mutex> lk( m );
-            this->data.emplace_back( word );
-            word.clear();
+        if(!std::isspace(c) && !std::iscntrl(c)){
+        //if(c!='\n' && c!='\0') {
+            word += c;
             continue;
         }
-        word += *it;
+        if(word.empty() && previous_word.empty())
+        {
+            this->data.emplace_back(word);
+            continue;
+        }
+        if(!word.empty()) {
+            this->data.emplace_back(word);
+            word.clear();
+        }
     }
-    if( *std::prev( command.end() )!='\n' ) {
-        std::lock_guard<std::mutex> lk( m );
+    previous_word = word;
+    if(!word.empty())
         this->data.emplace_back(word);
-    }
+
+    std::lock_guard<std::mutex> lc( m );
+    for(auto&& a : this->data)
+        std::cout<<a<<" ";
+    std::cout<<std::endl;
 }
 
 void Context::Receive(const char* _data, std::size_t size) {
-    this->Parse(_data);
+    this->Parse(_data, size);
     cv.notify_one();
 }
 

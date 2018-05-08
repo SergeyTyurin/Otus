@@ -12,7 +12,7 @@ public:
     ~Context();
     void Handler();
     void Receive(const char* data, std::size_t size);
-    void Parse(const char* data);
+    void Parse( const char* data ,size_t);
     void Disconnect();
     void HandleRest();
     bool GetQE();
@@ -24,4 +24,5 @@ private:
     bool done;
     std::deque<std::string> data;
     bool QE;
+    std::string previous_word;
 };
